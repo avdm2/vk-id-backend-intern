@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  app:
+    image: 'vk_id_backend_intern:latest'
+    build:
+      context: .
+    container_name: app
+    depends_on:
+      - psql
+    environment:
+      - DB_HOST=psql
+      - DB_USER=postgresql
+      - DB_PASSWORD=postgresql
+      - DB_NAME=vk_backend_db
+    ports:
+      - "8080:8080"
+
+  psql:
+    container_name: psql
+    image: postgres:16.0
+    environment:
+      POSTGRES_USER: postgresql
+      POSTGRES_PASSWORD: postgresql
+      POSTGRES_DB: vk_backend_db
+    ports:
+      - "5432:5432"
